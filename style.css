@@ -1,0 +1,415 @@
+/* ===== 配色・共通ルール ===== */
+:root {
+  --color-bg: #f6f1e6;        /* ベースのアイボリー */
+  --color-surface: #efe6d3;   /* カードのくすみベージュ */
+  --color-surface-2: #e6dbc2; /* もう少し濃いベージュ(ボタンなど) */
+  --color-olive: #7d7a4f;     /* オリーブ */
+  --color-olive-dark: #5f5c3a;/* 濃いオリーブ */
+  --color-brown: #8a6a4b;     /* ブラウン */
+  --color-text: #4a3f2e;      /* 濃いオリーブブラウン(本文用の黒の代わり) */
+  --radius-lg: 24px;
+  --radius-md: 16px;
+  --radius-sm: 10px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic",
+    -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ===== 起動画面(スプラッシュ) ===== */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg);
+  z-index: 100;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+#splash-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#splash-logo {
+  width: min(70vw, 320px);
+  border-radius: var(--radius-lg);
+}
+
+/* ===== アプリ本体 ===== */
+#app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+#app.visible {
+  opacity: 1;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: var(--color-olive-dark);
+  letter-spacing: 0.05em;
+}
+
+.app-header .subtitle {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: var(--color-brown);
+  letter-spacing: 0.03em;
+}
+
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(74, 63, 46, 0.08);
+}
+
+.placeholder p {
+  margin: 0;
+  text-align: center;
+  color: var(--color-brown);
+  line-height: 1.6;
+}
+
+/* ===== 記録フォーム ===== */
+.record-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.field-title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  color: var(--color-olive-dark);
+}
+
+/* --- 気分選択 --- */
+.mood-selector {
+  display: flex;
+  gap: 8px;
+}
+
+.mood-option {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.mood-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mood-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 52px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  font-size: clamp(18px, 6vw, 26px);
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-surface-2);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.mood-option input:checked + .mood-face {
+  background-color: var(--color-olive);
+  border-color: var(--color-olive-dark);
+  transform: scale(1.12);
+}
+
+.mood-face:hover {
+  border-color: var(--color-olive);
+}
+
+.field-error {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: var(--color-brown);
+}
+
+/* --- できたこと --- */
+.tasks-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.task-option {
+  position: relative;
+}
+
+.task-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.task-option span {
+  display: inline-block;
+  padding: 8px 14px;
+  font-size: 14px;
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-surface-2);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+.task-option input:checked + span {
+  background-color: var(--color-olive);
+  border-color: var(--color-olive-dark);
+  color: #fdfaf3;
+}
+
+/* --- ひとこと --- */
+textarea#comment {
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 14px;
+  font-family: inherit;
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border: 1.5px solid var(--color-surface-2);
+  border-radius: var(--radius-sm);
+  resize: none;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+textarea#comment:focus {
+  border-color: var(--color-olive);
+}
+
+.char-count {
+  margin-top: 6px;
+  text-align: right;
+  font-size: 12px;
+  color: var(--color-brown);
+}
+
+/* --- 保存ボタン --- */
+.btn-primary {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fdfaf3;
+  background-color: var(--color-olive-dark);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-olive);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+/* --- 保存後の褒めメッセージ --- */
+.praise-card {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.praise-message {
+  margin: 0 0 20px;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--color-olive-dark);
+  white-space: pre-line;
+}
+
+.btn-secondary {
+  padding: 10px 20px;
+  font-size: 14px;
+  color: var(--color-olive-dark);
+  background-color: transparent;
+  border: 1.5px solid var(--color-olive);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-surface-2);
+}
+
+/* --- 気分の変化グラフ --- */
+.chart-card {
+  margin-top: 20px;
+}
+
+.chart-empty {
+  margin: 0;
+  color: var(--color-brown);
+  font-size: 14px;
+}
+
+#mood-chart {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.chart-point {
+  cursor: pointer;
+}
+
+.chart-hint {
+  margin: 8px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-brown);
+}
+
+/* --- 詳細ポップアップ(モーダル) --- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(74, 63, 46, 0.35);
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 200;
+}
+
+.modal-overlay:not([hidden]) {
+  display: flex;
+}
+
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: 28px 22px 22px;
+  box-shadow: 0 8px 24px rgba(74, 63, 46, 0.2);
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  border: none;
+  background: none;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--color-brown);
+  cursor: pointer;
+}
+
+.modal-date {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: var(--color-brown);
+}
+
+.modal-mood {
+  font-size: 36px;
+  margin: 0 0 12px;
+}
+
+.modal-tasks {
+  font-size: 14px;
+  color: var(--color-text);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+
+.modal-comment {
+  font-size: 14px;
+  color: var(--color-olive-dark);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* --- 過去の記録 --- */
+.history-card {
+  margin-top: 20px;
+}
+
+.history-empty {
+  margin: 0;
+  color: var(--color-brown);
+  font-size: 14px;
+}
+
+.history-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.history-item {
+  padding: 14px 16px;
+  background-color: var(--color-surface-2);
+  border-radius: var(--radius-sm);
+}
+
+.history-row-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.history-date {
+  font-size: 13px;
+  color: var(--color-brown);
+}
+
+.history-mood {
+  font-size: 22px;
+}
+
+.history-tasks {
+  font-size: 13px;
+  color: var(--color-text);
+  line-height: 1.5;
+}
+
+.history-comment {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--color-olive-dark);
+  line-height: 1.5;
+}

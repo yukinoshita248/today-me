@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Today Me</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div id="splash-screen">
+    <img src="assets/logo.png" alt="Today Me - Today's Reflection" id="splash-logo">
+  </div>
+
+  <main id="app" hidden>
+    <header class="app-header">
+      <h1>Today Me</h1>
+      <p class="subtitle">Today's Reflection</p>
+    </header>
+
+    <section class="card record-form">
+
+      <div class="field-block">
+        <h2 class="field-title">今日の気分は?</h2>
+        <div class="mood-selector" id="mood-selector">
+          <label class="mood-option">
+            <input type="radio" name="mood" value="5">
+            <span class="mood-face">😊</span>
+          </label>
+          <label class="mood-option">
+            <input type="radio" name="mood" value="4">
+            <span class="mood-face">🙂</span>
+          </label>
+          <label class="mood-option">
+            <input type="radio" name="mood" value="3">
+            <span class="mood-face">😐</span>
+          </label>
+          <label class="mood-option">
+            <input type="radio" name="mood" value="2">
+            <span class="mood-face">😢</span>
+          </label>
+          <label class="mood-option">
+            <input type="radio" name="mood" value="1">
+            <span class="mood-face">😫</span>
+          </label>
+        </div>
+        <p class="field-error" id="mood-error" hidden>気分を1つ選んでください</p>
+      </div>
+
+      <div class="field-block">
+        <h2 class="field-title">今日できたこと</h2>
+        <div class="tasks-grid" id="tasks-grid">
+          <label class="task-option"><input type="checkbox" value="仕事した"><span>仕事した</span></label>
+          <label class="task-option"><input type="checkbox" value="勉強した"><span>勉強した</span></label>
+          <label class="task-option"><input type="checkbox" value="運動した"><span>運動した</span></label>
+          <label class="task-option"><input type="checkbox" value="自炊した"><span>自炊した</span></label>
+          <label class="task-option"><input type="checkbox" value="掃除した"><span>掃除した</span></label>
+          <label class="task-option"><input type="checkbox" value="洗濯した"><span>洗濯した</span></label>
+          <label class="task-option"><input type="checkbox" value="部屋を片付けた"><span>部屋を片付けた</span></label>
+          <label class="task-option"><input type="checkbox" value="友達や家族とコミュニケーションを取った"><span>友達や家族とコミュニケーションを取った</span></label>
+          <label class="task-option"><input type="checkbox" value="ゆっくり休んだ"><span>ゆっくり休んだ</span></label>
+          <label class="task-option"><input type="checkbox" value="その他"><span>その他</span></label>
+        </div>
+      </div>
+
+      <div class="field-block">
+        <h2 class="field-title">今日のひとこと</h2>
+        <textarea id="comment" maxlength="50" rows="3" placeholder="今日感じたことを一言(空欄でもOK)"></textarea>
+        <div class="char-count"><span id="char-count">0</span>/50</div>
+      </div>
+
+      <button type="button" id="save-btn" class="btn-primary">保存する</button>
+
+    </section>
+
+    <section class="card praise-card" id="praise-card" hidden>
+      <p class="praise-message" id="praise-message"></p>
+      <button type="button" id="edit-btn" class="btn-secondary">記録を編集する</button>
+    </section>
+
+    <section class="card chart-card">
+      <h2 class="field-title">気分の変化(直近7日間)</h2>
+      <p class="chart-empty" id="chart-empty">まだ記録がありません。</p>
+      <svg id="mood-chart" viewBox="0 0 320 200" role="img" aria-label="直近7日間の気分の変化"></svg>
+      <p class="chart-hint" id="chart-hint" hidden>点をタップすると、その日の記録が見られます</p>
+    </section>
+
+    <section class="card history-card">
+      <h2 class="field-title">過去の記録</h2>
+      <p class="history-empty" id="history-empty">まだ記録がありません。</p>
+      <ul class="history-list" id="history-list"></ul>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="detail-modal" hidden>
+    <div class="modal-card">
+      <button type="button" id="modal-close" class="modal-close" aria-label="閉じる">×</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
