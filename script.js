@@ -69,6 +69,38 @@ const recordForm = document.querySelector(".record-form");
 const praiseCard = document.getElementById("praise-card");
 const praiseMessage = document.getElementById("praise-message");
 const editBtn = document.getElementById("edit-btn");
+const todayReminder = document.getElementById("today-reminder");
+
+function getTodayRecord() {
+  const records = loadRecords();
+  return records.find((r) => r.date === getTodayDateString());
+}
+
+function populateForm(record) {
+  const moodRadio = document.querySelector(`input[name="mood"][value="${record.mood}"]`);
+  if (moodRadio) moodRadio.checked = true;
+
+  document.querySelectorAll('#tasks-grid input[type="checkbox"]').forEach((checkbox) => {
+    checkbox.checked = record.tasks.includes(checkbox.value);
+  });
+
+  commentInput.value = record.comment;
+  charCount.textContent = commentInput.value.length;
+}
+
+function refreshTodayStatus() {
+  const todayRecord = getTodayRecord();
+
+  if (todayRecord) {
+    todayReminder.hidden = true;
+    praiseMessage.textContent = buildPraiseMessage(todayRecord.tasks.length, todayRecord.tasks);
+    praiseCard.hidden = false;
+    populateForm(todayRecord);
+  } else {
+    todayReminder.hidden = false;
+    praiseCard.hidden = true;
+  }
+}
 
 saveBtn.addEventListener("click", () => {
   const moodInput = document.querySelector('input[name="mood"]:checked');
@@ -103,9 +135,8 @@ saveBtn.addEventListener("click", () => {
   }
   saveRecords(records);
 
-  praiseMessage.textContent = buildPraiseMessage(tasks.length, tasks);
+  refreshTodayStatus();
   recordForm.hidden = true;
-  praiseCard.hidden = false;
   renderHistory();
   renderChart();
 });
@@ -114,6 +145,8 @@ editBtn.addEventListener("click", () => {
   praiseCard.hidden = true;
   recordForm.hidden = false;
 });
+
+refreshTodayStatus();
 
 // ===== 過去の記録の一覧表示 =====
 

@@ -22,6 +22,14 @@
       <p class="subtitle">Today's Reflection</p>
     </header>
 
+    <p id="today-reminder" class="today-reminder" hidden>今日はまだ入力していません🐈‍⬛</p>
+
+    <section class="card praise-card" id="praise-card" hidden>
+      <p class="praise-message" id="praise-message"></p>
+      <p class="praise-notice">保存すると、今日の記録は上書きされます。</p>
+      <button type="button" id="edit-btn" class="btn-secondary">記録を編集する</button>
+    </section>
+
     <section class="card record-form">
 
       <div class="field-block">
@@ -75,11 +83,6 @@
 
       <button type="button" id="save-btn" class="btn-primary">保存する</button>
 
-    </section>
-
-    <section class="card praise-card" id="praise-card" hidden>
-      <p class="praise-message" id="praise-message"></p>
-      <button type="button" id="edit-btn" class="btn-secondary">記録を編集する</button>
     </section>
 
     <section class="card chart-card">

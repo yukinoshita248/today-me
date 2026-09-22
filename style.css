@@ -240,18 +240,35 @@ textarea#comment:focus {
   transform: scale(0.98);
 }
 
+/* --- 今日はまだ未入力の案内 --- */
+.today-reminder {
+  margin: 0 0 20px;
+  padding: 14px 18px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-brown);
+  background-color: var(--color-surface-2);
+  border-radius: var(--radius-sm);
+}
+
 /* --- 保存後の褒めメッセージ --- */
 .praise-card {
-  margin-top: 20px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
 .praise-message {
-  margin: 0 0 20px;
+  margin: 0 0 8px;
   font-size: 15px;
   line-height: 1.8;
   color: var(--color-olive-dark);
   white-space: pre-line;
+}
+
+.praise-notice {
+  margin: 0 0 20px;
+  font-size: 13px;
+  color: var(--color-brown);
 }
 
 .btn-secondary {
